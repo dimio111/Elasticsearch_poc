@@ -5,9 +5,9 @@ package dimi.elasticsearch.poc.model;
  */
 public class Product {
 
-    String id;
-    String title;
-    String description;
+    private String id;
+    private String title;
+    private String description;
     private String category;
     private Price price;
 
