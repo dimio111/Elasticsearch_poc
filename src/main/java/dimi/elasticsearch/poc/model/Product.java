@@ -8,6 +8,8 @@ public class Product {
     String id;
     String title;
     String description;
+    private String category;
+    private Price price;
 
     public String getId() {
         return id;
@@ -31,5 +33,21 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Price getPrice() {
+        return price;
+    }
+
+    public void setPrice(Price price) {
+        this.price = price;
     }
 }
