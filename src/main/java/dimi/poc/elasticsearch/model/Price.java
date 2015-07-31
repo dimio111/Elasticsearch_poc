@@ -1,4 +1,4 @@
-package dimi.elasticsearch.poc.model;
+package dimi.poc.elasticsearch.model;
 
 /**
  * Developer: Ben Oeyen

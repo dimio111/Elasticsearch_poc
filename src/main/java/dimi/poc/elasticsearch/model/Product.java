@@ -1,4 +1,4 @@
-package dimi.elasticsearch.poc.model;
+package dimi.poc.elasticsearch.model;
 
 /**
  * Created by dimitrisaeys on 29/07/15.
