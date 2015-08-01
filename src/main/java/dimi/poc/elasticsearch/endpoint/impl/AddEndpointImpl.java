@@ -2,8 +2,10 @@ package dimi.poc.elasticsearch.endpoint.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import dimi.poc.elasticsearch.endpoint.AddEndpoint;
-import dimi.poc.elasticsearch.factory.ClientFactory;
+import dimi.poc.elasticsearch.manager.ClientManager;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.update.UpdateRequest;
@@ -12,7 +14,15 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by dimitrisaeys on 30/07/15.
  */
+@Singleton
 public class AddEndpointImpl<PUT> implements AddEndpoint<PUT> {
+
+    private ClientManager clientManager;
+
+    @Inject
+    public AddEndpointImpl(ClientManager clientManager) {
+        this.clientManager = clientManager;
+    }
 
     @Override
     public boolean add(PUT object, String index, String type, String id) {
@@ -23,7 +33,7 @@ public class AddEndpointImpl<PUT> implements AddEndpoint<PUT> {
             IndexRequest indexRequest = createIndexRequest(json, index, type, id);
             UpdateRequest updateRequest = createUpdateRequest(json, index, type, indexRequest);
             try {
-                ClientFactory.getClient().update(updateRequest).get();
+                clientManager.getClient().update(updateRequest).get();
                 returner = true;
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();

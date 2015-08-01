@@ -1,5 +1,8 @@
-# general
-configurationName: elastic.poc.config
+# configures elasticsearch
+elasticsearch:
+  host: localhost
+  port: 9300
+  cluster: dimi_elasticsearch
 
 server:
   applicationConnectors:
@@ -38,7 +41,3 @@ server:
       - type: file
         currentLogFilename: /tmp/log/customer-api-access.log
         archivedLogFilenamePattern: /tmp/log/customer-api-access%d{yyyy-MM-dd}.log
-
-viewRendererConfiguration:
-  .mustache:
-    obsolete: yes

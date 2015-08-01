@@ -1,5 +1,6 @@
-package dimi.poc.elasticsearch.factory;
+package dimi.poc.elasticsearch.manager;
 
+import com.google.inject.Singleton;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.ImmutableSettings;
@@ -9,24 +10,25 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 /**
  * Created by dimitrisaeys on 30/07/15.
  */
-public class ClientFactory {
+@Singleton
+public class ClientManager {
 
     private static final String CLUSTER_NAME = "cluster.name";
 
-    static private Client client = null;
+    private Client client = null;
 
-    static{
+    public ClientManager(String cluster, String host, int port) {
         Settings settings = ImmutableSettings.settingsBuilder()
-                .put(CLUSTER_NAME, "dimi_elasticsearch").build();
+                .put(CLUSTER_NAME, cluster).build();
         client = new TransportClient(settings)
-                .addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
+                .addTransportAddress(new InetSocketTransportAddress(host, port));
     }
 
-    public static Client getClient() {
+    public Client getClient() {
         return client;
     }
 
-    public static void closeClient(){
+    public void closeClient(){
         client.close();
     }
 }

@@ -1,9 +1,10 @@
 package dimi.poc.elasticsearch.endpoint.impl;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import dimi.poc.elasticsearch.endpoint.GetEndpoint;
-import dimi.poc.elasticsearch.factory.ClientFactory;
+import dimi.poc.elasticsearch.manager.ClientManager;
 import org.elasticsearch.action.get.GetResponse;
 
 import java.io.IOException;
@@ -11,18 +12,22 @@ import java.io.IOException;
 /**
  * Created by dimitrisaeys on 30/07/15.
  */
+@Singleton
 public class GetEndpointImpl<RECIEVE> implements GetEndpoint<RECIEVE> {
-    private ObjectMapper mapper = new ObjectMapper();
-    private final Class<RECIEVE> recieveObjectClass;
 
-    public GetEndpointImpl(Class<RECIEVE> recieveObjectClass) {
-        this.recieveObjectClass = recieveObjectClass;
+    private ClientManager clientManager;
+
+    @Inject
+    public GetEndpointImpl(ClientManager clientManager) {
+        this.clientManager = clientManager;
     }
 
-    @Override
-    public RECIEVE get(String index, String type, String id) {
+    private ObjectMapper mapper = new ObjectMapper();
 
-        GetResponse response = ClientFactory.getClient().prepareGet(index, type, id)
+    @Override
+    public RECIEVE get(String index, String type, String id, Class<RECIEVE> recieveObjectClass) {
+
+        GetResponse response = clientManager.getClient().prepareGet(index, type, id)
                 .execute()
                 .actionGet();
 
