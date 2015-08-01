@@ -1,8 +1,8 @@
-package dimi.poc.elasticsearch.endpoint;
+package dimi.poc.elasticsearch.endpoint.impl;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dimi.poc.elasticsearch.endpoint.api.GetEndpoint;
+import dimi.poc.elasticsearch.endpoint.GetEndpoint;
 import dimi.poc.elasticsearch.factory.ClientFactory;
 import org.elasticsearch.action.get.GetResponse;
 
@@ -19,6 +19,7 @@ public class GetEndpointImpl<RECIEVE> implements GetEndpoint<RECIEVE> {
         this.recieveObjectClass = recieveObjectClass;
     }
 
+    @Override
     public RECIEVE get(String index, String type, String id) {
 
         GetResponse response = ClientFactory.getClient().prepareGet(index, type, id)

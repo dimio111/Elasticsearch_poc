@@ -11,11 +11,13 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
  */
 public class ClientFactory {
 
+    private static final String CLUSTER_NAME = "cluster.name";
+
     static private Client client = null;
 
     static{
         Settings settings = ImmutableSettings.settingsBuilder()
-                .put("cluster.name", "dimi_elasticsearch").build();
+                .put(CLUSTER_NAME, "dimi_elasticsearch").build();
         client = new TransportClient(settings)
                 .addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
     }

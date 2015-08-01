@@ -1,7 +1,7 @@
 package dimi.poc;
 
-import dimi.poc.elasticsearch.endpoint.AddEndpoint;
-import dimi.poc.elasticsearch.endpoint.GetEndpointImpl;
+import dimi.poc.elasticsearch.command.AddCommand;
+import dimi.poc.elasticsearch.command.GetCommand;
 import dimi.poc.elasticsearch.model.Product;
 
 import java.io.IOException;
@@ -19,12 +19,10 @@ public class Main {
         product.setTitle("Bosh boor");
 
         //Comment if already in elasticsearch.
-//        AddEndpoint addEndpoint = new AddEndpoint();
-//        addEndpoint.add(product, "products", "Boormachines", product.getId());
+        boolean productAdded = AddCommand.addProduct(product, "products", "Boormachines", product.getId());
 
-        GetEndpointImpl<Product> getEndpoint = new GetEndpointImpl<Product>(Product.class);
-        Product product1 = getEndpoint.get("products", "Boormachines", product.getId());
+        Product product1 = GetCommand.getProduct("products", "Boormachines", product.getId());
 
-        System.out.println("ID= "+ product1.getId());
+        System.out.println("ID= " + product1.getId());
     }
 }

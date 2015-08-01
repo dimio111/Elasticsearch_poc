@@ -1,4 +1,4 @@
-package dimi.poc.elasticsearch.endpoint.api;
+package dimi.poc.elasticsearch.endpoint;
 
 /**
  * Created by dimitrisaeys on 31/07/15.

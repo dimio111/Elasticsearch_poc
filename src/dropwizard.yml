@@ -1,3 +1,6 @@
+# general
+configurationName: elastic.poc.config
+
 server:
   applicationConnectors:
   - type: http
@@ -9,15 +12,33 @@ server:
 # Logging settings.
 logging:
 
-    # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
-    level: INFO
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
 
+  # Logger-specific levels.
+  loggers:
+
+    # Sets the level for 'com.example.app' to DEBUG.
+    be.bertswin.customerapi: TRACE
+
+  appenders:
+    - type: console
+      logFormat: "%d{dd-MM-yyyy HH:mm:ss} *%p* [%t] %logger | %msg %n"
+    - type: file
+      currentLogFilename: /tmp/log/customer-api.log
+      archivedLogFilenamePattern: /tmp/log/customer-api-%d{yyyy-MM-dd}.log
+      logFormat: "%d{dd-MM-yyyy HH:mm:ss Z} *%p* [%t] %logger | %msg %n"
+      archivedFileCount: 7
+      timeZone: UTC
+
+server:
+  requestLog:
     appenders:
-        - type: console
-          logFormat: "%d{dd-MM-yyyy HH:mm:ss} *%p* [%t] %logger | %msg %n"
-        - type: file
-          currentLogFilename: /tmp/log/dropwizard.log
-          archivedLogFilenamePattern: /tmp/log/dropwizard-%d{yyyy-MM-dd}.log
-          logFormat: "%d{dd-MM-yyyy HH:mm:ss} *%p* [%t] %logger | %msg %n"
-          archivedFileCount: 7
-          timeZone: UTC
+      - type: console
+      - type: file
+        currentLogFilename: /tmp/log/customer-api-access.log
+        archivedLogFilenamePattern: /tmp/log/customer-api-access%d{yyyy-MM-dd}.log
+
+viewRendererConfiguration:
+  .mustache:
+    obsolete: yes

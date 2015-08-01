@@ -5,6 +5,8 @@ package dimi.poc.elasticsearch.model;
  */
 public class Product {
 
+    private String elIndex;
+    private String elType;
     private String id;
     private String title;
     private String description;
@@ -50,4 +52,6 @@ public class Product {
     public void setPrice(Price price) {
         this.price = price;
     }
+
+
 }
