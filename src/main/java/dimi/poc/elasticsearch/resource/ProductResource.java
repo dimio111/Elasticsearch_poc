@@ -43,4 +43,17 @@ public class ProductResource {
         return productService.getProduct("products", "test", productId);
     }
 
+    @ApiOperation("Create some product.")
+    @GET
+    @Path("/create")
+    @Timed
+    public Product getProduct() {
+        Product product = new Product();
+        product.setId("1");
+        product.setTitle("itle1");
+        product.setDescription("Desc1");
+        productService.addProduct(product, "products", "test");
+        return product;
+    }
+
 }

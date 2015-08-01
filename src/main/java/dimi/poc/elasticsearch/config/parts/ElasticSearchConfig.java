@@ -13,7 +13,7 @@ public class ElasticSearchConfig {
     @NotEmpty
     private String host;
     @NotEmpty
-    private String port;
+    private int port;
 
     @JsonProperty
     public String getCluster() {
@@ -26,7 +26,7 @@ public class ElasticSearchConfig {
     }
 
     @JsonProperty
-    public String getPort() {
+    public int getPort() {
         return port;
     }
 }

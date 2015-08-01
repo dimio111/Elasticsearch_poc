@@ -12,6 +12,7 @@ public class ClientManagerProvider implements Provider<ClientManager> {
 
     private final ElasticSearchConfig elasticSearchConfig;
 
+    //TODO this injection is not working!!!
     @Inject
     public ClientManagerProvider(ElasticSearchConfig elasticSearchConfig) {
         this.elasticSearchConfig = elasticSearchConfig;
@@ -20,6 +21,6 @@ public class ClientManagerProvider implements Provider<ClientManager> {
     @Override
     public ClientManager get() {
         return new ClientManager(elasticSearchConfig.getCluster(),
-                elasticSearchConfig.getHost(), Integer.valueOf(elasticSearchConfig.getPort()));
+                elasticSearchConfig.getHost(), elasticSearchConfig.getPort());
     }
 }
