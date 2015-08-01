@@ -22,7 +22,7 @@ logging:
   loggers:
 
     # Sets the level for 'com.example.app' to DEBUG.
-    be.bertswin.customerapi: TRACE
+    dimi.poc.elasticsearch: TRACE
 
   appenders:
     - type: console

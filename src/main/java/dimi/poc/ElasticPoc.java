@@ -15,7 +15,6 @@ import io.dropwizard.setup.Environment;
  * Created by dimitrisaeys on 01/08/15.
  */
 public class ElasticPoc extends Application<ElasticPocConfig> {
-
     private final static Logger LOG = Logger.getLogger(ElasticPoc.class);
 
     public static void main(String[] args) throws Exception {
@@ -24,15 +23,11 @@ public class ElasticPoc extends Application<ElasticPocConfig> {
 
     @Override
     public void run(ElasticPocConfig configuration, Environment environment) throws Exception {
-        LOG.info("Setting up with elasticsearch configuration");
-        LOG.info("cluster: " + configuration.getElasticSearchConfig().getCluster());
-        LOG.info("host: " + configuration.getElasticSearchConfig().getHost());
-        LOG.info("port: " + configuration.getElasticSearchConfig().getPort());
-
         Injector injector = Guice.createInjector(new ElasticApiModule());
         final ProductResource productResource = new ProductResource(injector.getInstance(ProductService.class));
         environment.jersey().register(productResource);
+
         //Need to explicitly open a connection to elasticsearch.
-        injector.getInstance(ClientManager.class).openClient();
+        injector.getInstance(ClientManager.class).configureAndStartClientManager(configuration.getElasticSearchConfig());
     }
 }

@@ -7,6 +7,7 @@ import com.google.inject.Singleton;
 import dimi.poc.elasticsearch.endpoint.AddEndpoint;
 import dimi.poc.elasticsearch.manager.ClientManager;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.update.UpdateRequest;
 import java.util.concurrent.ExecutionException;
@@ -16,6 +17,7 @@ import java.util.concurrent.ExecutionException;
  */
 @Singleton
 public class AddEndpointImpl<PUT> implements AddEndpoint<PUT> {
+    private final static Logger LOG = Logger.getLogger(AddEndpoint.class);
 
     private ClientManager clientManager;
 
@@ -30,7 +32,9 @@ public class AddEndpointImpl<PUT> implements AddEndpoint<PUT> {
         boolean returner = false;
 
         if(json.length > 0 && StringUtils.isNotBlank(index) && StringUtils.isNotEmpty(type)){
+            LOG.debug("Create index " + index + " for type " + type + " and id " + id);
             IndexRequest indexRequest = createIndexRequest(json, index, type, id);
+            LOG.debug("Upserting into " + index + " for type " + type + " and id " + id);
             UpdateRequest updateRequest = createUpdateRequest(json, index, type, indexRequest);
             try {
                 clientManager.getClient().update(updateRequest).get();
