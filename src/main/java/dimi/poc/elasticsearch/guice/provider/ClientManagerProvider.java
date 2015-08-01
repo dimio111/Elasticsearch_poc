@@ -19,6 +19,7 @@ public class ClientManagerProvider implements Provider<ClientManager> {
 
     @Override
     public ClientManager get() {
-        return new ClientManager(elasticSearchConfig.getCluster(), elasticSearchConfig.getHost(), Integer.valueOf(elasticSearchConfig.getPort()));
+        return new ClientManager(elasticSearchConfig.getCluster(),
+                elasticSearchConfig.getHost(), Integer.valueOf(elasticSearchConfig.getPort()));
     }
 }

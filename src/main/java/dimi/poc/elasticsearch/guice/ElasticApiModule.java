@@ -1,12 +1,14 @@
 package dimi.poc.elasticsearch.guice;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.TypeLiteral;
 import dimi.poc.elasticsearch.endpoint.AddEndpoint;
 import dimi.poc.elasticsearch.endpoint.GetEndpoint;
 import dimi.poc.elasticsearch.endpoint.impl.AddEndpointImpl;
 import dimi.poc.elasticsearch.endpoint.impl.GetEndpointImpl;
 import dimi.poc.elasticsearch.guice.provider.ClientManagerProvider;
 import dimi.poc.elasticsearch.manager.ClientManager;
+import dimi.poc.elasticsearch.model.Product;
 import dimi.poc.elasticsearch.service.product.ProductService;
 import dimi.poc.elasticsearch.service.product.impl.ProductServiceImpl;
 
@@ -20,6 +22,8 @@ public class ElasticApiModule extends AbstractModule {
         bind(ClientManager.class).toProvider(ClientManagerProvider.class);
         bind(GetEndpoint.class).to(GetEndpointImpl.class);
         bind(AddEndpoint.class).to(AddEndpointImpl.class);
+        bind(new TypeLiteral<GetEndpoint<Product>>() {}).to(new TypeLiteral<GetEndpointImpl<Product>>() {});
+        bind(new TypeLiteral<AddEndpoint<Product>>() {}).to(new TypeLiteral<AddEndpointImpl<Product>>() {});
         bind(ProductService.class).to(ProductServiceImpl.class);
     }
 }

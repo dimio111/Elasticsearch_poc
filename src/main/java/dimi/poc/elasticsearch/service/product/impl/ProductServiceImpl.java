@@ -17,14 +17,15 @@ public class ProductServiceImpl implements ProductService{
     private AddEndpoint<Product> addEndpoint;
 
     @Inject
-    public ProductServiceImpl(GetEndpoint getEndpoint, AddEndpoint addEndpoint) {
+    public ProductServiceImpl(GetEndpoint<Product> getEndpoint, AddEndpoint<Product> addEndpoint) {
         this.getEndpoint = getEndpoint;
         this.addEndpoint = addEndpoint;
     }
 
     @Override
     public Product getProduct(String index, String type, String id) {
-        return getEndpoint.get(index, type, id, Product.class);    }
+        return getEndpoint.get(index, type, id, Product.class);
+    }
 
     @Override
     public boolean addProduct(Product product, String index, String type) {
