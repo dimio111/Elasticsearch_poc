@@ -19,12 +19,8 @@ import java.util.concurrent.ExecutionException;
 public class AddEndpointImpl<PUT> implements AddEndpoint<PUT> {
     private final static Logger LOG = Logger.getLogger(AddEndpoint.class);
 
-    private ClientManager clientManager;
-
     @Inject
-    public AddEndpointImpl(ClientManager clientManager) {
-        this.clientManager = clientManager;
-    }
+    private ClientManager clientManager;
 
     @Override
     public boolean add(PUT object, String index, String type, String id) {

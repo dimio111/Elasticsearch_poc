@@ -15,17 +15,13 @@ import java.io.IOException;
 @Singleton
 public class GetEndpointImpl<RECIEVE> implements GetEndpoint<RECIEVE> {
 
-    private ClientManager clientManager;
-
     @Inject
-    public GetEndpointImpl(ClientManager clientManager) {
-        this.clientManager = clientManager;
-    }
+    private ClientManager clientManager;
 
     private ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public RECIEVE get(String index, String type, String id, Class<RECIEVE> recieveObjectClass) {
+    public RECIEVE get(String index, String type, String id, Class<RECIEVE> receiveObjectClass) {
 
         GetResponse response = clientManager.getClient().prepareGet(index, type, id)
                 .execute()
@@ -33,7 +29,7 @@ public class GetEndpointImpl<RECIEVE> implements GetEndpoint<RECIEVE> {
 
         RECIEVE product = null;
         try {
-            product = mapper.readValue(response.getSourceAsString(), recieveObjectClass);
+            product = mapper.readValue(response.getSourceAsString(), receiveObjectClass);
         } catch (IOException e) {
             e.printStackTrace();
         }

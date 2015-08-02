@@ -43,6 +43,14 @@ public class ProductResource {
         return productService.getProduct("products", type, productId);
     }
 
+    @ApiOperation("Search product.")
+    @GET
+    @Path("/search/{query}")
+    @Timed
+    public List<Product> searchProduct(@PathParam("query") String query) {
+        return productService.search(query);
+    }
+
     @ApiOperation("Create some product.")
     @GET
     @Path("/createRandomProducts/{amount}")
